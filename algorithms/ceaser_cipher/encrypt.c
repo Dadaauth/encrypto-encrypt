@@ -2,20 +2,28 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdio.h>
-#include "main.h"
+#include "../../main.h"
 /**
  * encrypt - encrypts a string of text
  * @filename: the file containing the text to encrypt
  * @key: The key for encryption
  * Return: The Encrypted File Name
 */
-char *encrypt(char *filename, int key)
+char *encrypt(char *filename, char *keyd)
 {
-    int ch, i = 0;
+    int ch, i = 0, key;
     FILE *fptr, *encfptr;
     size_t fileCharCount;
-    char *encryptedFile = strdup(filename), *encryptedTxt;
+    char *encryptedFile, *encryptedTxt;
 
+    if (filename == NULL || keyd == NULL)
+    {
+        printf("Error: Please provide arguments to the encrypt command.\n");
+        return (NULL);
+    }
+
+    key = atoi(keyd);
+    encryptedFile = strdup(filename);
     strcat(encryptedFile, ".enc");
     if ((fptr = fopen(filename, "r")) == NULL)
     {
