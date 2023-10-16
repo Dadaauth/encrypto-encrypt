@@ -2,13 +2,14 @@
 #include <string.h>
 #include <stdbool.h>
 #include "../main.h"
+#include "../algorithms/rijndael/rijndael.h"
 
 void execute(char **stream)
 {
     int i = 0;
     bool command_found = false;
     command commands[] = {
-        {"encrypt", encrypt},
+        {"encrypt", rijndael_encrypt},
         {"decrypt", decrypt},
         {"", emptyline},
         {NULL, NULL},

@@ -25,7 +25,7 @@ int interactive_mode()
 
         stream = get_cmdline();
         execute(stream);
-        free_stream(stream);
+        // free_stream(stream);
     }
-    free(stream);
+    // free(stream);
 }

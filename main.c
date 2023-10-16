@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <openssl/evp.h>
+#include <openssl/crypto.h>
 #include "main.h"
 /**
  * main - the main function of our program
