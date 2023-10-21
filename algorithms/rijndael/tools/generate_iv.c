@@ -1,7 +1,7 @@
 #include <string.h>
 #include <errno.h>
 #include <openssl/rand.h>
-#include "rijndael.h"
+#include "tools.h"
 
 /**
  * generate_random_iv - generates a random Initialization Vector (IV)

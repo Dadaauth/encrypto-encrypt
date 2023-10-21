@@ -1,0 +1,2 @@
+Handle multiple files at the same time.
+handle file names with space between them, provided they are put between quotation marks

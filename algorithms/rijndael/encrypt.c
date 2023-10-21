@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <openssl/evp.h>
 #include <openssl/rand.h>
+#include <stdbool.h>
 #include "rijndael.h"
-
-
+#include "tools/tools.h"
 
 /**
  * rijndael_encrypt - encrypts a file or string of text using
@@ -16,16 +16,17 @@
 */
 char *rijndael_encrypt(char *filename, char *keyd)
 {
-    // Declare Primary Variables
     unsigned char *plaintext;
     int plaintext_len, ciphertext_len, len;
-    const unsigned char *key = (const unsigned char *)keyd;
+    const unsigned char *key;
     size_t iv_length = 16;
     unsigned char iv[iv_length];
-    mode mode = ENCRYPT;
     metadata metadata;
 
+    if (!valid_arguments(filename, keyd, ENCRYPT))
+        return (NULL);
 
+    key = (const unsigned char *)keyd;
     OpenSSL_add_all_algorithms();
     EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
     
@@ -34,7 +35,7 @@ char *rijndael_encrypt(char *filename, char *keyd)
     EVP_EncryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, key, iv);
 
     // Reading Files
-    plaintext = (unsigned char *)handle_files(filename, NULL, 0, mode, metadata);
+    plaintext = (unsigned char *)handle_files(filename, NULL, 0, ENCRYPT, metadata);
     if (plaintext == NULL)
         return (NULL);
     plaintext_len = strlen((char *)plaintext);
@@ -51,8 +52,9 @@ char *rijndael_encrypt(char *filename, char *keyd)
     metadata.iv_length = iv_length;
     metadata.ciphertext_len = (size_t) ciphertext_len;
     metadata.plaintext_len = (size_t) plaintext_len;
-    handle_files(strcat(filename, ".enc"), ciphertext, ciphertext_len, mode, metadata);
+    handle_files(strcat(filename, ".enc"), ciphertext, ciphertext_len, ENCRYPT, metadata);
 
     // Finalize Encryption
     EVP_CIPHER_CTX_free(ctx);
+    free(plaintext);
 }

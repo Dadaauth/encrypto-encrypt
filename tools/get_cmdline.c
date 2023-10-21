@@ -10,14 +10,13 @@ char* get_user_input();
  * Return: the double pointer of strings which contains the command
  * to run and its arguments
 */
-char **get_cmdline()
+char **get_cmdline(size_t *tok_count)
 {
     int i = 0;
-    char **stream = calloc(1, sizeof(char *)), **new_stream, *input;
-    
+    char **stream = malloc(sizeof(char *)), **new_stream, *input;
+
     input = get_user_input();
     stream[i] = remove_newline(strtok(input, " "));
-
     while (stream[i++] != NULL)
     {
         new_stream = realloc(stream, sizeof(char*) * (i + 1));
@@ -32,11 +31,10 @@ char **get_cmdline()
         
         if (stream[i] != NULL)
             stream[i] = remove_newline(stream[i]);
-
     }
-
+    *tok_count = i - 1;
     if (strcmp(stream[0], "exit") == 0)
-        exit_program();
+        exit_program(stream);
     return (stream);
 }
 

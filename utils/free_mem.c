@@ -7,8 +7,6 @@ void free_stream(char **stream)
     int i = 0;
 
     while (stream[i] != NULL)
-    {
         free(stream[i++]);
-    }
-    // free(stream);
+    free(stream);
 }

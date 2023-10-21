@@ -12,15 +12,13 @@ typedef struct operation{
     char *(*func_ptr)(char*, char*);
 } command;
 
-char *encrypt(char *filename, char *keyd);
-char *decrypt(char *filename, char *keyd);
 char *emptyline(char *txt, char *keyd);
 
-char **get_cmdline();
+// tools
+char **get_cmdline(size_t *tok_count);
 int interactive_mode();
-void exit_program();
-
-void execute(char **stream);
+void exit_program(char **stream);
+void execute(char **stream, size_t tok_count);
 
 // utils
 size_t file_size(FILE *file);

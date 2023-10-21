@@ -19,7 +19,7 @@ char *decrypt(char *filename, char *keyd)
 
     if (filename == NULL || keyd == NULL)
     {
-        printf("Error: Please provide arguments to the encrypt command.\n");
+        printf("Error: Please provide arguments to the decrypt command.\n");
         return (NULL);
     }
 

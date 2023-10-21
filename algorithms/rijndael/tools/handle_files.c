@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-#include "rijndael.h"
+#include "tools.h"
 
 /**
  * read_file_ded - read file, for decryption. I.E Read ciphertext
@@ -13,8 +13,7 @@
 */
 char *read_file_ded(char *filename)
 {
-    char *file_contents = NULL;
-    char buffer[1];
+    char *file_contents = NULL, buffer[1];
     int length = 0;
     FILE *fileptr = fopen(filename, "rb"); // open in binary mode because encrypted text may contain binary data.
 
@@ -129,11 +128,6 @@ void write_file_end(char *filename, char *contents, size_t length, metadata meta
  * for encryption
  * 
 */
-
-
-// Prepend the @ciphertext_len variable value into the encrypted text
-// Prepend the iv value into the ciphertext
-// Prepend the plaintext length into the ciphertext
 char *handle_files(char *filename, char *contents, size_t content_len, mode mode, metadata metadata)
 {
     if (contents == NULL) // Read file
@@ -152,8 +146,3 @@ char *handle_files(char *filename, char *contents, size_t content_len, mode mode
         write_file_ded(filename, contents);
     return (NULL);
 }
-
-// Store plaintext length
-// Store IV information
-// Store ciphertext length
-// Create a structure to handle the payload

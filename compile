@@ -1,0 +1,2 @@
+gcc *.c algorithms/ceaser_cipher/*.c algorithms/rijndael/*.c algorithms/rijndael/tools/*.c tools/*.c utils/*.c  -o encrypto -lcrypto;
+valgrind --leak-check=full --track-origins=yes -s ./encrypto

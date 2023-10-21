@@ -15,6 +15,7 @@ int interactive_mode()
     int stop = false;
     char *ps1 = ">>! ";
     char **stream;
+    size_t tok_count;
 
     printf("Encrypto:\n");
     printf("--------------------------------\n");
@@ -23,9 +24,8 @@ int interactive_mode()
     {
         printf("%s", ps1);
 
-        stream = get_cmdline();
-        execute(stream);
-        // free_stream(stream);
+        stream = get_cmdline(&tok_count);
+        execute(stream, tok_count);
+        free_stream(stream);
     }
-    // free(stream);
 }
